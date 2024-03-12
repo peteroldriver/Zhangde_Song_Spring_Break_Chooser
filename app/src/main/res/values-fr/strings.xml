@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Sélecteur de vacances de printemps</string>
+    <string name="text">Salut tout le monde</string>
+    <string name="chinese">Chinois</string>
+    <string name="english">Anglais</string>
+    <string name="spanish">Espagnol</string>
+    <string name="french">Français</string>
+</resources>

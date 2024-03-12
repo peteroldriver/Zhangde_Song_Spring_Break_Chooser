@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">春假选择器</string>
+    <string name="text">你好世界</string>
+    <string name="chinese">中文</string>
+    <string name="english">英文</string>
+    <string name="french">法文</string>
+    <string name="spanish">西班牙文</string>
+</resources>

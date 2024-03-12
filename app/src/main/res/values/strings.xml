@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Spring Break Chooser</string>
+    <string name="text">Hello World</string>
+    <string name="chinese">Chinese</string>
+    <string name="english">English</string>
+    <string name="spanish">Spanish</string>
+    <string name="french">French</string>
+</resources>
