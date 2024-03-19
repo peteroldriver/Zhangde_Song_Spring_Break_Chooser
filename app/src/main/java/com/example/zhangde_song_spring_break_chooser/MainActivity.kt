@@ -1,5 +1,6 @@
 package com.example.zhangde_song_spring_break_chooser
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.hardware.Sensor
@@ -9,8 +10,10 @@ import android.hardware.SensorManager
 import android.net.Uri
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
+import android.speech.RecognizerIntent
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.result.contract.ActivityResultContracts
 import com.example.zhangde_song_spring_break_chooser.databinding.ActivityMainBinding
 import java.util.Locale
 import kotlin.math.sqrt
@@ -72,6 +75,31 @@ class MainActivity : AppCompatActivity(), SensorEventListener, TextToSpeech.OnIn
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val result = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+                result->
+            if (result.resultCode == Activity.RESULT_OK){
+                val results = result.data?.getStringArrayListExtra(
+                    RecognizerIntent.EXTRA_RESULTS
+                ) as ArrayList<String>
+
+                binding.editText.setText(results[0])
+            }
+        }
+
+        binding.mixIV.setOnClickListener {
+            try {
+                val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, resources.configuration.locale.language)
+                intent.putExtra(RecognizerIntent.EXTRA_PROMPT,"Say Something")
+                result.launch(intent)
+            }catch (e:Exception){
+                e.printStackTrace()
+            }
+        }
+
+
 
         binding.chineseButton.setOnClickListener {
             setLocale(this@MainActivity,"zh")
@@ -154,7 +182,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener, TextToSpeech.OnIn
             this@MainActivity.startActivity(intent)
         }
 
-    fun setLocale(context: Context, langCode:String){
+    private fun setLocale(context: Context, langCode:String){
         var local = Locale(langCode)
         Locale.setDefault(local)
         var resources = context.resources
